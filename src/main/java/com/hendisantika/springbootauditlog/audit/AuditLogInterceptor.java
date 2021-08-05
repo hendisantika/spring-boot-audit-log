@@ -2,6 +2,7 @@ package com.hendisantika.springbootauditlog.audit;
 
 import com.hendisantika.springbootauditlog.dto.AuditTrailDTO;
 import com.hendisantika.springbootauditlog.service.AuditLogService;
+import com.hendisantika.springbootauditlog.util.ApplicationContextProvider;
 import com.hendisantika.springbootauditlog.util.Enums;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.CallbackException;
@@ -53,7 +54,7 @@ public class AuditLogInterceptor extends EmptyInterceptor {
             AuditLogService auditLogService =
                     (AuditLogService) ApplicationContextProvider.getApplicationContext().getBean("auditLogService");
             for (int i = 0; i < propertyNames.length; i++) {
-                System.out.println("Inside On Save   ************    ************** ===>>>      " + propertyNames[i]);
+                log.info("Inside On Save   ************    ************** ===>>>      " + propertyNames[i]);
                 auditTrailDTOList.add(new AuditTrailDTO(entity.getClass().getCanonicalName(), id.toString(),
                         Enums.AuditEvent.INSERT.name(), propertyNames[i], null, state[i].toString()));
             }
@@ -69,7 +70,7 @@ public class AuditLogInterceptor extends EmptyInterceptor {
             AuditLogService auditLogService =
                     (AuditLogService) ApplicationContextProvider.getApplicationContext().getBean("auditLogService");
             for (int i = 0; i < propertyNames.length; i++) {
-                System.out.println("Inside On Delete   ************    ************** ===>>>      " + propertyNames[i]);
+                log.info("Inside On Delete   ************    ************** ===>>>      " + propertyNames[i]);
                 auditTrailDTOList.add(new AuditTrailDTO(entity.getClass().getCanonicalName(), id.toString(),
                         Enums.AuditEvent.DELETE.name(), propertyNames[i], state[i].toString(), null));
             }
