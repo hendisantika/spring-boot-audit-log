@@ -38,4 +38,9 @@ public class StudentController {
         model.addAttribute("studentDTOList", studentDTOList);
         return "student/list";
     }
+
+    @GetMapping("/create")
+    public String create() {
+        return "student/create";
+    }
 }
