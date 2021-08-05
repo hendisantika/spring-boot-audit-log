@@ -1,8 +1,12 @@
 package com.hendisantika.springbootauditlog.audit;
 
 import com.hendisantika.springbootauditlog.dto.AuditTrailDTO;
+import com.hendisantika.springbootauditlog.service.AuditLogService;
+import com.hendisantika.springbootauditlog.util.Enums;
+import lombok.extern.log4j.Log4j2;
 import org.hibernate.CallbackException;
 import org.hibernate.EmptyInterceptor;
+import org.hibernate.type.Type;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -18,6 +22,7 @@ import java.util.List;
  * Date: 06/08/21
  * Time: 06.04
  */
+@Log4j2
 @Component
 public class AuditLogInterceptor extends EmptyInterceptor {
 
@@ -30,7 +35,7 @@ public class AuditLogInterceptor extends EmptyInterceptor {
                     (AuditLogService) ApplicationContextProvider.getApplicationContext().getBean("auditLogService");
             for (int i = 0; i < currentState.length; i++) {
                 if (!previousState[i].equals(currentState[i])) {
-                    System.out.println("Inside On Flush Dirty   ************    **************      ==>>    " + propertyNames[i]);
+                    log.info("Inside On Flush Dirty   ************    **************      ==>>    " + propertyNames[i]);
                     auditTrailDTOList.add(new AuditTrailDTO(entity.getClass().getCanonicalName(), id.toString(),
                             Enums.AuditEvent.UPDATE.name(), propertyNames[i], previousState[i].toString(),
                             currentState[i].toString()));
