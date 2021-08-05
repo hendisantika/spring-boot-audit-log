@@ -1,10 +1,12 @@
 package com.hendisantika.springbootauditlog.controller;
 
 import com.hendisantika.springbootauditlog.dto.StudentDTO;
+import com.hendisantika.springbootauditlog.model.Student;
 import com.hendisantika.springbootauditlog.repository.StudentRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -42,5 +44,11 @@ public class StudentController {
     @GetMapping("/create")
     public String create() {
         return "student/create";
+    }
+
+    @PostMapping
+    public String save(Student student) {
+        studentRepository.save(student);
+        return "redirect:/student/list";
     }
 }
