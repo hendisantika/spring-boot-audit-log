@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student List</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h5 class="card-title">Student List</h5>
+                </div>
+                <div class="col">
+                    <a class="float-right btn btn-outline-primary btn-sm" th:href="@{/student/create}">Create</a>
+                </div>
+            </div>
+            <table class="table table-hover table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email Address</th>
+                    <th scope="col">Phone Number</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="studentDTO,iter :${studentDTOList}">
+                    <th scope="row" th:text="${iter.index + 1}"></th>
+                    <td th:text="${studentDTO.getFirstName()}"></td>
+                    <td th:text="${studentDTO.getLastName()}">Otto</td>
+                    <td th:text="${studentDTO.getEmailAddress()}">@mdo</td>
+                    <td th:text="${studentDTO.getPhoneNumber()}">@mdo</td>
+                    <td>
+                        <a style="text-decoration: none" th:href="@{'/student/edit/'+${studentDTO.getId()}}">Edit</a>&nbsp;|&nbsp;
+                        <a class="text-danger" style="text-decoration: none"
+                           th:href="@{'/student/delete/'+${studentDTO.getId()}}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>
