@@ -13,7 +13,7 @@
                     <h5 class="card-title">Student List</h5>
                 </div>
                 <div class="col">
-                    <a class="float-right btn btn-outline-primary btn-sm" th:href="@{/student/create}">Create</a>
+                    <a class="float-right btn btn-outline-primary btn-sm" th:href="@{/students/create}">Create</a>
                 </div>
             </div>
             <table class="table table-hover table-striped">
@@ -35,9 +35,9 @@
                     <td th:text="${studentDTO.getEmailAddress()}">@mdo</td>
                     <td th:text="${studentDTO.getPhoneNumber()}">@mdo</td>
                     <td>
-                        <a style="text-decoration: none" th:href="@{'/student/edit/'+${studentDTO.getId()}}">Edit</a>&nbsp;|&nbsp;
+                        <a style="text-decoration: none" th:href="@{'/students/edit/'+${studentDTO.getId()}}">Edit</a>&nbsp;|&nbsp;
                         <a class="text-danger" style="text-decoration: none"
-                           th:href="@{'/student/delete/'+${studentDTO.getId()}}">Delete</a>
+                           th:href="@{'/students/delete/'+${studentDTO.getId()}}">Delete</a>
                     </td>
                 </tr>
                 </tbody>

@@ -50,13 +50,13 @@ public class StudentController {
     @PostMapping
     public String save(Student student) {
         studentRepository.save(student);
-        return "redirect:/student/list";
+        return "redirect:/students";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         studentRepository.deleteById(id);
-        return "redirect:/student/list";
+        return "redirect:/students";
     }
 
     @GetMapping("/edit/{id}")
@@ -74,6 +74,6 @@ public class StudentController {
         student.setEmailAddress(studentDTO.getEmailAddress());
         student.setPhoneNumber(studentDTO.getPhoneNumber());
         studentRepository.save(student);
-        return "redirect:/student/list";
+        return "redirect:/students";
     }
 }

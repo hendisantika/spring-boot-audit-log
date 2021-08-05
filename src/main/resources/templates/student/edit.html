@@ -13,10 +13,10 @@
                     <h5 class="card-title">Update Student</h5>
                 </div>
                 <div class="col">
-                    <a class="float-right btn btn-outline-primary btn-sm" th:href="@{/student/list}">List</a>
+                    <a class="float-right btn btn-outline-primary btn-sm" th:href="@{/students}">List</a>
                 </div>
             </div>
-            <form method="post" th:action="@{/student/update}">
+            <form method="post" th:action="@{/students/update}">
                 <input name="id" th:value="${student.getId()}" type="hidden">
                 <div class="form-group">
                     <label for="firstName">First Name</label>
