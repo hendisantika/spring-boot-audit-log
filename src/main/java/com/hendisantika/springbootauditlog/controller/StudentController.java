@@ -58,4 +58,11 @@ public class StudentController {
         studentRepository.deleteById(id);
         return "redirect:/student/list";
     }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model) {
+        Student student = studentRepository.findById(id).get();
+        model.addAttribute("student", student);
+        return "student/edit";
+    }
 }
