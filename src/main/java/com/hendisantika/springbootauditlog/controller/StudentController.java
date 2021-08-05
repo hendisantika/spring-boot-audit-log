@@ -65,4 +65,15 @@ public class StudentController {
         model.addAttribute("student", student);
         return "student/edit";
     }
+
+    @PostMapping(value = "/update")
+    public String update(StudentDTO studentDTO) {
+        Student student = studentRepository.findById(studentDTO.getId()).get();
+        student.setFirstName(studentDTO.getFirstName());
+        student.setLastName(studentDTO.getLastName());
+        student.setEmailAddress(studentDTO.getEmailAddress());
+        student.setPhoneNumber(studentDTO.getPhoneNumber());
+        studentRepository.save(student);
+        return "redirect:/student/list";
+    }
 }
