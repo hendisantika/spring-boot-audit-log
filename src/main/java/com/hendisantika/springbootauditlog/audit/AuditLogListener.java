@@ -1,6 +1,10 @@
 package com.hendisantika.springbootauditlog.audit;
 
 import com.hendisantika.springbootauditlog.dto.AuditTrailDTO;
+import com.hendisantika.springbootauditlog.service.AuditLogService;
+import com.hendisantika.springbootauditlog.util.ApplicationContextProvider;
+import com.hendisantika.springbootauditlog.util.Enums;
+import lombok.extern.log4j.Log4j2;
 import org.hibernate.event.spi.PostDeleteEvent;
 import org.hibernate.event.spi.PostDeleteEventListener;
 import org.hibernate.event.spi.PostInsertEvent;
@@ -22,6 +26,7 @@ import java.util.List;
  * Date: 06/08/21
  * Time: 06.03
  */
+@Log4j2
 @Component
 public class AuditLogListener implements PostInsertEventListener, PostUpdateEventListener, PostDeleteEventListener {
 
@@ -35,7 +40,7 @@ public class AuditLogListener implements PostInsertEventListener, PostUpdateEven
             String[] propertyNames = event.getPersister().getPropertyNames();
             Object[] states = event.getState();
             for (int i = 0; i < propertyNames.length; i++) {
-                System.out.println("Inside On Save   ************    ************** ===>>>      " + propertyNames[i]);
+                log.info("Inside On Save   ************    ************** ===>>>      " + propertyNames[i]);
                 auditTrailDTOList.add(new AuditTrailDTO(entity.getClass().getCanonicalName(),
                         event.getId().toString(), Enums.AuditEvent.INSERT.name(), propertyNames[i], null,
                         states[i].toString()));
@@ -61,7 +66,7 @@ public class AuditLogListener implements PostInsertEventListener, PostUpdateEven
                     (AuditLogService) ApplicationContextProvider.getApplicationContext().getBean("auditLogService");
             for (int i = 0; i < currentState.length; i++) {
                 if (!previousState[i].equals(currentState[i])) {
-                    System.out.println("Inside On Flush Dirty   ************    **************      ==>>    " + propertyNames[i]);
+                    log.info("Inside On Flush Dirty   ************    **************      ==>>    " + propertyNames[i]);
                     auditTrailDTOList.add(new AuditTrailDTO(entity.getClass().getCanonicalName(),
                             event.getId().toString(), Enums.AuditEvent.UPDATE.name(), propertyNames[i],
                             previousState[i].toString(), currentState[i].toString()));
@@ -81,7 +86,7 @@ public class AuditLogListener implements PostInsertEventListener, PostUpdateEven
             AuditLogService auditLogService =
                     (AuditLogService) ApplicationContextProvider.getApplicationContext().getBean("auditLogService");
             for (int i = 0; i < propertyNames.length; i++) {
-                System.out.println("Inside On Delete   ************    ************** ===>>>      " + propertyNames[i]);
+                log.info("Inside On Delete   ************    ************** ===>>>      " + propertyNames[i]);
                 auditTrailDTOList.add(new AuditTrailDTO(entity.getClass().getCanonicalName(),
                         event.getId().toString(), Enums.AuditEvent.DELETE.name(), propertyNames[i],
                         state[i].toString(), null));
